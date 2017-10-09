@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-
+#include <stdlib.h>
 #include "commands.h"
 #include "utils.h"
 
@@ -9,15 +8,14 @@ static void release_argv(int argc, char*** argv);
 
 int main()
 {
-  char buf[8096];
+  char buf[10000];
   int argc;
   char** argv;
 
+
   while (1) {
-    fgets(buf, 8096, stdin);
-
+    fgets(buf, 10000, stdin);
     mysh_parse_command(buf, &argc, &argv);
-
     if (strcmp(argv[0], "") == 0) {
       goto release_and_continue;
     } else if (strcmp(argv[0], "cd") == 0) {
@@ -40,7 +38,6 @@ release_and_exit:
     release_argv(argc, &argv);
     break;
   }
-
   return 0;
 }
 
@@ -49,5 +46,4 @@ static void release_argv(int argc, char*** argv) {
     free((*argv)[i]);
   }
   free(*argv);
-  *argv = NULL;
-}
+  *argv = NULL;}
